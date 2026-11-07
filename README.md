@@ -172,12 +172,33 @@ ON public.estudiantes_lab FOR INSERT WITH CHECK (true);
 
 ---
 
-### Paso 2.3: Obtener las credenciales de conexión
-1. En el menú lateral de Supabase, haz clic en el ícono de engranaje **`Project Settings`**.
-2. Ve a la sección **`API Keys`** (o **`API`**).
-3. Necesitas dos valores:
-   - **Project URL**: Tiene la forma `https://tu-proyecto.supabase.co`.
-   - **Publishable API Key (anon public)**: Clave pública que empieza por `sb_publishable_...` o `eyJhbGci...`.
+### Paso 2.3: ¿Dónde buscar la URL y las Llaves (API Keys) de Supabase?
+
+Para que cualquier estudiante pueda conectar su propia base de datos a la web, debe buscar dos datos en el panel de Supabase:
+
+#### 1. Dónde encontrar la `Project URL`:
+1. En el menú lateral izquierdo de tu proyecto en Supabase, haz clic en el ícono de engranaje **`Project Settings`** (Configuración del proyecto, abajo del todo).
+2. En la sección **`General`**, verás el campo **`Project ID`** (por ejemplo: `sbrlvyondrlkszmgwrof`).
+3. Tu **Project URL** siempre tiene este formato:
+   ```text
+   https://[TU-PROJECT-ID].supabase.co
+   ```
+   *(Ejemplo: `https://sbrlvyondrlkszmgwrof.supabase.co`)*.
+
+#### 2. Dónde encontrar la Llave Pública (`Publishable / anon key`):
+1. En ese mismo menú lateral izquierdo, bajo la categoría **`CONFIGURATION`**, haz clic en **`API Keys`** (o **`API`**).
+2. Verás dos secciones de llaves:
+   - ✅ **Publishable key / `anon public`**: Es una clave que empieza por `sb_publishable_...` o `eyJhbGciOi...`. **ESTA ES LA LLAVE QUE DEBES USAR**. Tiene un botón de **Copy** al lado para copiarla en un clic. Es 100% segura para usarse en el navegador porque está protegida por las políticas RLS.
+   - 🚫 **Secret keys / `service_role`**: **NUNCA la uses en el frontend ni la compartas**. Esa llave es solo para administradores y permite saltarse toda la seguridad.
+
+#### 3. Dónde pegar estos datos en la web:
+Tienes dos formas sencillas de conectarla:
+- **Forma A (Desde la propia pantalla de la web):** Abre `http://localhost:3000`, haz clic en **`⚡ 2. Supabase (BaaS Cloud)`**, y en el recuadro amarillo que aparece pega tu URL y tu Publishable Key. ¡La web la guardará automáticamente en tu navegador!
+- **Forma B (Directo en el código `pro.js`):** En las primeras líneas de `pro.js`, asigna tus valores por defecto:
+  ```javascript
+  const SUPABASE_URL = 'https://TU-PROYECTO.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_TU_LLAVE_AQUI';
+  ```
 
 ---
 
