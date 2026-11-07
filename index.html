@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Laboratorio Web: SQLite + Express vs. Supabase (BaaS) | GearSoftCA</title>
+  <link rel="stylesheet" href="estilos.css" />
+</head>
+<body>
+
+  <!-- Header Corporativo e Institucional -->
+  <header class="header-clase">
+    <div class="contenedor header-contenido">
+      <div>
+        <div class="logo-gearsoft">GearSoft<span>CA</span></div>
+        <p class="eslogan-corp">"Impulsa tu negocio con soluciones innovadoras"</p>
+      </div>
+      <div class="badge-docente">
+        Clase de Desarrollo Web &bull; Ing. Javier Alburges
+      </div>
+    </div>
+  </header>
+
+  <main class="contenedor">
+    
+    <!-- Hero Didáctico -->
+    <section class="hero-clase">
+      <h1>Laboratorio de Bases de Datos en Desarrollo Web</h1>
+      <p>
+        Compara en tiempo real los dos paradigmas principales para conectar una aplicación web a una base de datos: 
+        <strong>Enfoque Tradicional (Backend con Express + SQLite)</strong> frente a 
+        <strong>BaaS en la Nube (Backend-as-a-Service con Supabase)</strong>.
+      </p>
+    </section>
+
+    <!-- Módulo Teórico y Comparativa de Arquitectura -->
+    <section class="grid-teoria">
+      
+      <!-- Tarjeta 1: Tradicional -->
+      <article class="tarjeta-teoria">
+        <span class="tag-metodo tag-tradicional">Enfoque Tradicional</span>
+        <h2>Node.js + Express + SQLite</h2>
+        <p style="font-size:0.9rem; color:#4C4C4C;">
+          El navegador no tiene acceso directo a la base de datos por seguridad. Construimos nuestro propio servidor API REST que procesa las peticiones y ejecuta sentencias SQL locales.
+        </p>
+        <div class="diagrama-flujo">
+          Frontend (fetch) &rarr; API REST (Express) &rarr; database.sqlite
+        </div>
+        <ul class="ventajas-lista">
+          <li><strong>Control Total:</strong> Tú diseñas la lógica, seguridad y middlewares.</li>
+          <li><strong>Base de datos local:</strong> SQLite es un solo archivo embebido y ligero.</li>
+          <li><strong>Independencia:</strong> No dependes de servicios ni cuotas de terceros.</li>
+          <li><em>Desafío para alumnos:</em> Requiere configurar y correr un servidor local.</li>
+        </ul>
+      </article>
+
+      <!-- Tarjeta 2: BaaS Supabase -->
+      <article class="tarjeta-teoria baas">
+        <span class="tag-metodo tag-baas">Enfoque Moderno (BaaS)</span>
+        <h2>Supabase (Backend-as-a-Service)</h2>
+        <p style="font-size:0.9rem; color:#4C4C4C;">
+          Supabase provee una base de datos PostgreSQL en la nube y genera automáticamente APIs REST y WebSockets en tiempo real, interactuando directamente desde el navegador mediante un SDK.
+        </p>
+        <div class="diagrama-flujo">
+          Frontend (SDK JS) &rarr; Supabase Cloud (PostgreSQL)
+        </div>
+        <ul class="ventajas-lista">
+          <li><strong>Sin servidor que programar:</strong> Listo en minutos mediante CDN.</li>
+          <li><strong>Dashboard visual:</strong> Los estudiantes ven tablas y filas en el navegador.</li>
+          <li><strong>Tiempo Real Nativo:</strong> WebSockets sin necesidad de configurar Socket.io.</li>
+          <li><em>Desafío para alumnos:</em> Dependencia de conectividad a Internet y políticas RLS.</li>
+        </ul>
+      </article>
+
+    </section>
+
+    <!-- Laboratorio Práctico Interactivo -->
+    <section class="seccion-laboratorio">
+      <div class="encabezado-lab">
+        <div>
+          <h2>Simulador Práctico en Vivo</h2>
+          <p style="font-size:0.9rem; color:#4C4C4C;">Selecciona el motor con el que deseas probar la inserción y consulta de datos:</p>
+        </div>
+
+        <!-- Selector de Modo / Switch -->
+        <div class="switch-contenedor">
+          <button type="button" id="btn-modo-sqlite" class="btn-switch activo">
+            📁 1. Express + SQLite (Local)
+          </button>
+          <button type="button" id="btn-modo-supabase" class="btn-switch baas-btn">
+            ⚡ 2. Supabase (BaaS Cloud)
+          </button>
+        </div>
+      </div>
+
+      <!-- Banner de Estado Dinámico -->
+      <div id="banner-estado" class="panel-estado estado-tradicional">
+        <strong>Modo Activo:</strong> <span id="texto-estado">Express + SQLite. Las peticiones se envían a <code>http://localhost:3000/api/estudiantes</code></span>
+      </div>
+
+      <!-- Configuración Opcional de Supabase (Oculto en modo SQLite) -->
+      <div id="panel-config-supabase" class="bloque-credenciales-supabase" style="display: none;">
+        <h4>⚡ Configuración Rápida de Supabase para la Clase:</h4>
+        <p style="font-size:0.8rem; color:#92400E; margin-bottom: 8px;">
+          Para probar Supabase, ingresa la URL y la Anon Key de tu proyecto (o usa las de demostración de la clase).
+        </p>
+        <div class="campos-creds">
+          <input type="text" id="sb-url" value="https://sbrlvyondrlkszmgwrof.supabase.co" placeholder="URL de Proyecto" />
+          <input type="text" id="sb-key" value="sb_publishable_LVIDg0yFtr_eVHv6JNX27Q_CW2tcZWp" placeholder="Publishable Key" />
+        </div>
+      </div>
+
+      <!-- Grid del Laboratorio (Formulario + Consola/Resultados) -->
+      <div class="grid-lab">
+        
+        <!-- Formulario de Entrada -->
+        <form id="form-estudiante" class="formulario-lab">
+          <div class="grupo-campo">
+            <label for="input-nombre">Nombre del Estudiante:</label>
+            <input type="text" id="input-nombre" placeholder="Ej: María Rodríguez" required />
+          </div>
+
+          <div class="grupo-campo">
+            <label for="input-email">Correo Electrónico:</label>
+            <input type="email" id="input-email" placeholder="maria@ejemplo.com" required />
+          </div>
+
+          <div class="grupo-campo">
+            <label for="input-comentario">Nota / Comentario de la Práctica:</label>
+            <textarea id="input-comentario" rows="3" placeholder="Ej: Probando conexión e inserción SQL..."></textarea>
+          </div>
+
+          <button type="submit" id="btn-submit" class="btn-ejecutar">
+            <span>💾 Guardar Registro con Express + SQLite</span>
+          </button>
+        </form>
+
+        <!-- Consola de Ejecución y Visualizador de Datos -->
+        <div class="panel-visualizacion">
+          
+          <!-- Consola Didáctica -->
+          <div class="consola-codigo">
+            <span class="titulo-consola">&gt; Consola de Transmisión Didáctica:</span>
+            <pre id="log-consola">// Esperando interacción...
+// Aquí verás el comando exacto o la consulta ejecutada.</pre>
+          </div>
+
+          <!-- Tabla de Datos Almacenados -->
+          <div class="tabla-registros-contenedor">
+            <div class="tabla-header">
+              <span>Registros en Base de Datos (<strong id="contador-registros">0</strong>)</span>
+              <button type="button" id="btn-recargar" style="background:none; border:none; color:#9AECED; cursor:pointer; font-size:0.8rem;">🔄 Actualizar</button>
+            </div>
+            <ul id="lista-registros" class="lista-registros-lab">
+              <li style="justify-content:center; color:#6B7280; font-style:italic;">Cargando registros...</li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Sección de Código Didáctico para Estudiantes -->
+    <section class="seccion-snippets">
+      <h3>💻 Código Fuente de Referencia para Estudiantes</h3>
+      <div class="tabs-codigo">
+        <button type="button" class="tab-btn activo" data-tab="tab-express">1. server.js (Express + SQLite)</button>
+        <button type="button" class="tab-btn" data-tab="tab-fetch">2. cliente-fetch.js (Frontend Tradicional)</button>
+        <button type="button" class="tab-btn" data-tab="tab-supabase">3. cliente-supabase.js (Frontend BaaS)</button>
+      </div>
+
+      <div id="tab-express" class="bloque-codigo">
+<pre>// ========================================================
+// 1. BACKEND TRADICIONAL CON NODE.JS + EXPRESS + SQLITE
+// ========================================================
+const express = require('express');
+const sqlite3 = require('sqlite3').verbose();
+const app = express();
+
+app.use(express.json());
+
+// Conectar o crear base de datos local
+const db = new sqlite3.Database('./database.sqlite');
+
+// Crear tabla
+db.run(`CREATE TABLE IF NOT EXISTS estudiantes (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  nombre TEXT,
+  email TEXT
+)`);
+
+// Endpoint GET
+app.get('/api/estudiantes', (req, res) => {
+  db.all('SELECT * FROM estudiantes ORDER BY id DESC', [], (err, rows) => {
+    res.json(rows);
+  });
+});
+
+// Endpoint POST
+app.post('/api/estudiantes', (req, res) => {
+  const { nombre, email } = req.body;
+  db.run('INSERT INTO estudiantes (nombre, email) VALUES (?, ?)', [nombre, email], function(err) {
+    res.status(201).json({ id: this.lastID, nombre, email });
+  });
+});
+
+app.listen(3000, () => console.log('Servidor en http://localhost:3000'));</pre>
+      </div>
+
+      <div id="tab-fetch" class="bloque-codigo" style="display: none;">
+<pre>// ========================================================
+// 2. CONSUMO DESDE EL FRONTEND (PETICIONES HTTP REST)
+// ========================================================
+
+// Leer registros (GET)
+async function obtenerEstudiantes() {
+  const respuesta = await fetch('/api/estudiantes');
+  const datos = await respuesta.json();
+  console.log('Estudiantes recibidos:', datos);
+}
+
+// Guardar nuevo registro (POST)
+async function guardarEstudiante(nombre, email) {
+  const respuesta = await fetch('/api/estudiantes', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ nombre, email })
+  });
+  const resultado = await respuesta.json();
+  console.log('Guardado con ID:', resultado.id);
+}</pre>
+      </div>
+
+      <div id="tab-supabase" class="bloque-codigo" style="display: none;">
+<pre>// ========================================================
+// 3. ENFOQUE BaaS: CONSUMO DIRECTO CON EL SDK DE SUPABASE
+// ========================================================
+// Importado vía CDN: &lt;script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"&gt;&lt;/script&gt;
+
+const supabase = window.supabase.createClient('https://tu-proyecto.supabase.co', 'tu-anon-key');
+
+// Guardar registro (INSERT directo en PostgreSQL Cloud)
+async function guardarEstudiante(nombre, email) {
+  const { data, error } = await supabase
+    .from('estudiantes_lab')
+    .insert([{ nombre, email }]);
+}
+
+// Leer registros (SELECT directo)
+async function obtenerEstudiantes() {
+  const { data, error } = await supabase
+    .from('estudiantes_lab')
+    .select('*')
+    .order('id', { ascending: false });
+}
+
+// Suscripción en Tiempo Real (Realtime)
+supabase
+  .channel('cambios-estudiantes')
+  .on('postgres_changes', { event: '*', schema: 'public', table: 'estudiantes_lab' }, () => {
+    obtenerEstudiantes(); // Se actualiza solo en todos los navegadores
+  })
+  .subscribe();</pre>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer Corporativo GearSoftCA -->
+  <footer class="footer-clase">
+    <div class="contenedor">
+      <p><strong>GearSoftCA</strong> &bull; Material Pedagógico de Desarrollo Web</p>
+      <p style="margin-top:4px;">
+        <a href="https://gearsoftca.com/" target="_blank" rel="noopener noreferrer">gearsoftca.com</a> | 
+        <em>"Impulsa tu negocio con soluciones innovadoras"</em>
+      </p>
+    </div>
+  </footer>
+
+  <!-- SDK de Supabase vía CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Lógica interactiva del laboratorio -->
+  <script src="pro.js"></script>
+</body>
+</html>

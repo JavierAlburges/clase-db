@@ -1,0 +1,523 @@
+:root {
+  --color-primary: #131D47;       /* Azul Oscuro GearSoftCA */
+  --color-secondary: #9AECED;     /* Celeste GearSoftCA */
+  --color-complement: #4C4C4C;    /* Gris GearSoftCA */
+  --color-bg: #F1F1F1;            /* Blanco / Gris Claro de fondo */
+  --color-text: #000000;          /* Negro */
+  --color-card-bg: #FFFFFF;
+  --color-border: #D1D5DB;
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+.contenedor {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ========================================================
+   Header Institucional
+   ======================================================== */
+.header-clase {
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+  padding: 24px 0;
+  border-bottom: 4px solid var(--color-secondary);
+}
+
+.header-contenido {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.logo-gearsoft {
+  font-size: 1.7rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: #FFFFFF;
+}
+
+.logo-gearsoft span {
+  color: var(--color-secondary);
+}
+
+.eslogan-corp {
+  font-size: 0.85rem;
+  color: var(--color-secondary);
+  font-style: italic;
+  margin-top: 2px;
+}
+
+.badge-docente {
+  background: rgba(154, 236, 237, 0.15);
+  border: 1px solid var(--color-secondary);
+  color: var(--color-secondary);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* ========================================================
+   Hero de la Clase
+   ======================================================== */
+.hero-clase {
+  text-align: center;
+  padding: 40px 0 20px;
+}
+
+.hero-clase h1 {
+  font-size: 2.2rem;
+  color: var(--color-primary);
+  margin-bottom: 12px;
+}
+
+.hero-clase p {
+  color: var(--color-complement);
+  font-size: 1.05rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* ========================================================
+   Tarjetas Comparativas Teóricas
+   ======================================================== */
+.grid-teoria {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  margin: 30px 0 45px;
+}
+
+.tarjeta-teoria {
+  background: var(--color-card-bg);
+  border-radius: 10px;
+  padding: 24px;
+  border-top: 5px solid var(--color-primary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.tarjeta-teoria.baas {
+  border-top-color: var(--color-secondary);
+}
+
+.tarjeta-teoria:hover {
+  transform: translateY(-3px);
+}
+
+.tag-metodo {
+  display: inline-block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.tag-tradicional {
+  background-color: #E2E8F0;
+  color: var(--color-primary);
+}
+
+.tag-baas {
+  background-color: rgba(154, 236, 237, 0.3);
+  color: #0F5B5C;
+}
+
+.tarjeta-teoria h2 {
+  font-size: 1.35rem;
+  color: var(--color-primary);
+  margin-bottom: 10px;
+}
+
+.diagrama-flujo {
+  background: #F8FAFC;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: var(--color-primary);
+  margin: 12px 0;
+  border-left: 3px solid var(--color-primary);
+}
+
+.tarjeta-teoria.baas .diagrama-flujo {
+  border-left-color: var(--color-secondary);
+}
+
+.ventajas-lista {
+  list-style: none;
+  margin-top: 14px;
+}
+
+.ventajas-lista li {
+  font-size: 0.9rem;
+  color: var(--color-complement);
+  margin-bottom: 8px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.ventajas-lista li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+  font-weight: bold;
+}
+
+/* ========================================================
+   Sección del Laboratorio Interactivo
+   ======================================================== */
+.seccion-laboratorio {
+  background: var(--color-card-bg);
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  margin-bottom: 50px;
+}
+
+.encabezado-lab {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #E5E7EB;
+}
+
+.encabezado-lab h2 {
+  color: var(--color-primary);
+  font-size: 1.6rem;
+}
+
+.switch-contenedor {
+  display: flex;
+  background: #E5E7EB;
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.btn-switch {
+  padding: 8px 18px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  color: var(--color-complement);
+}
+
+.btn-switch.activo {
+  background: var(--color-primary);
+  color: #FFFFFF;
+  box-shadow: 0 2px 6px rgba(19, 29, 71, 0.3);
+}
+
+.btn-switch.baas-btn.activo {
+  background: #0E7490;
+  color: #FFFFFF;
+}
+
+/* Indicador dinámico de estado */
+.panel-estado {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  margin-bottom: 24px;
+}
+
+.estado-tradicional {
+  background: #EFF6FF;
+  border-left: 4px solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+.estado-baas {
+  background: #ECFEFF;
+  border-left: 4px solid #0891B2;
+  color: #0E7490;
+}
+
+/* Configuración de credenciales Supabase */
+.bloque-credenciales-supabase {
+  background: #FFFBEB;
+  border: 1px dashed #F59E0B;
+  padding: 14px 18px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.bloque-credenciales-supabase h4 {
+  color: #B45309;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.campos-creds {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.campos-creds input {
+  padding: 8px 10px;
+  border: 1px solid #D1D5DB;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  width: 100%;
+}
+
+/* Layout del Laboratorio */
+.grid-lab {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 28px;
+}
+
+@media (max-width: 860px) {
+  .grid-lab {
+    grid-template-columns: 1fr;
+  }
+  .campos-creds {
+    grid-template-columns: 1fr;
+  }
+}
+
+.formulario-lab {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.grupo-campo label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 6px;
+}
+
+.grupo-campo input,
+.grupo-campo textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-size: 0.95rem;
+  color: var(--color-text);
+  background: #FFFFFF;
+}
+
+.grupo-campo input:focus,
+.grupo-campo textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(19, 29, 71, 0.1);
+}
+
+.btn-ejecutar {
+  padding: 12px 20px;
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-ejecutar:hover {
+  background-color: #1a275f;
+  transform: translateY(-1px);
+}
+
+/* Consola Didáctica y Tabla de Registros */
+.panel-visualizacion {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.consola-codigo {
+  background: #0B1120;
+  color: #E2E8F0;
+  padding: 14px 18px;
+  border-radius: 8px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.82rem;
+  border-left: 4px solid var(--color-secondary);
+}
+
+.consola-codigo .titulo-consola {
+  color: var(--color-secondary);
+  font-weight: bold;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.consola-codigo pre {
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.tabla-registros-contenedor {
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #FFFFFF;
+}
+
+.tabla-header {
+  background: var(--color-primary);
+  color: #FFFFFF;
+  padding: 12px 16px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tabla-header span {
+  color: var(--color-secondary);
+}
+
+.lista-registros-lab {
+  list-style: none;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.lista-registros-lab li {
+  padding: 10px 14px;
+  border-bottom: 1px solid #F3F4F6;
+  font-size: 0.88rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.lista-registros-lab li:last-child {
+  border-bottom: none;
+}
+
+.item-badge {
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.item-badge-sqlite {
+  background: #E2E8F0;
+  color: var(--color-primary);
+}
+
+.item-badge-supabase {
+  background: #CFFAFE;
+  color: #0E7490;
+}
+
+/* ========================================================
+   Sección de Referencia de Código
+   ======================================================== */
+.seccion-snippets {
+  margin-bottom: 60px;
+}
+
+.seccion-snippets h3 {
+  color: var(--color-primary);
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+}
+
+.tabs-codigo {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.tab-btn {
+  padding: 8px 16px;
+  border: 1px solid var(--color-border);
+  background: #FFFFFF;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--color-complement);
+}
+
+.tab-btn.activo {
+  background: var(--color-primary);
+  color: #FFFFFF;
+  border-color: var(--color-primary);
+}
+
+.bloque-codigo {
+  background: #0B1120;
+  color: #F8FAFC;
+  padding: 20px;
+  border-radius: 8px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.85rem;
+  overflow-x: auto;
+  line-height: 1.5;
+}
+
+/* Footer Institucional */
+.footer-clase {
+  background: var(--color-primary);
+  color: #FFFFFF;
+  text-align: center;
+  padding: 30px 20px;
+  border-top: 3px solid var(--color-secondary);
+}
+
+.footer-clase p {
+  font-size: 0.9rem;
+  color: #CBD5E1;
+}
+
+.footer-clase a {
+  color: var(--color-secondary);
+  text-decoration: none;
+}
+
+.footer-clase a:hover {
+  text-decoration: underline;
+}
